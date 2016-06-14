@@ -120,8 +120,12 @@ describe('Rotator', function(){
     var r = new rotator(options);
     (function() {
       r.write("test");
-      r.close();
-      done();
+      r.on('open', function(x){
+          r.close();
+      });
+      r.on('close', function(x){
+          done();
+      });
     }).should.not.throw();
   });
 
